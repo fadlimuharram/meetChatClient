@@ -6,12 +6,12 @@ import { store, persistore } from "./_redux/store";
 import { PersistGate } from "redux-persist/integration/react";
 import SocketContext from "./SocketContext";
 import io from "socket.io-client";
-import { api_url } from "react-native-dotenv";
+import { socket_url } from "react-native-dotenv";
 /**
  * primary color: 4F65B6
  */
 
-const socket = io(api_url);
+const socket = io(socket_url);
 
 type Props = {};
 export default class App extends Component<Props> {

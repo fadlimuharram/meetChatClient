@@ -8,7 +8,8 @@ import withAuth from "../hoc/WithAuth";
 const mapStateToProps = state => {
   return {
     recommendations: state.friends.recommendations.data,
-    isLoading: state.friends.isLoading
+    isLoading: state.friends.isLoading,
+    user: state.users.data
   };
 };
 

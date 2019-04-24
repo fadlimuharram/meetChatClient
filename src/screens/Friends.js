@@ -21,8 +21,10 @@ export default class Friends extends Component {
 
   _keyExtractor = (item, index) => item.id;
 
-  toChat = () => {
-    this.props.navigation.navigate("Chat");
+  toChat = id => {
+    this.props.navigation.navigate("Chat", {
+      id
+    });
   };
 
   renderFriendRecommendation = ({ item }) => (
@@ -31,7 +33,7 @@ export default class Friends extends Component {
       name={item.username}
       photo={item.cover}
       status="dummy"
-      onPress={this.toChat}
+      onPress={() => this.toChat(item.id)}
     />
   );
 
@@ -50,7 +52,7 @@ export default class Friends extends Component {
                   source={{ uri: "https://placeimg.com/640/480/people" }}
                 />
                 <Body>
-                  <Text style={styles.txtName}>Fadli Muharram</Text>
+                  <Text style={styles.txtName}>{this.props.user.username}</Text>
                   <Text note>status azure</Text>
                 </Body>
               </Left>

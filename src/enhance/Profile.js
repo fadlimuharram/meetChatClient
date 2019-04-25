@@ -1,9 +1,16 @@
 import React from "react";
 import Profile from "../screens/Profile";
+import { compose } from "redux";
 import { connect } from "react-redux";
-import { logout } from "../_redux/actions";
+import { logout, cover } from "../_redux/actions";
+import withAuth from "../hoc/WithAuth";
 
-export default connect(
-  "",
-  { logout }
-)(Profile);
+const enhance = compose(
+  withAuth,
+  connect(
+    "",
+    { logout, cover }
+  )
+);
+
+export default enhance(Profile);

@@ -6,17 +6,22 @@ import Timeline from "../enhance/TImeline";
 import Profile from "../enhance/Profile";
 import Friends from "../enhance/Friends";
 
-export default createMaterialBottomTabNavigator({
-  Chats: {
-    screen: Chats
+export default createMaterialBottomTabNavigator(
+  {
+    Chats: {
+      screen: Chats
+    },
+    Friends: {
+      screen: Friends
+    },
+    Timeline: {
+      screen: Timeline
+    },
+    Profile: {
+      screen: Profile
+    }
   },
-  Friends: {
-    screen: Friends
-  },
-  Timeline: {
-    screen: Timeline
-  },
-  Profile: {
-    screen: Profile
+  {
+    barStyle: { backgroundColor: "#4F65B6" }
   }
-});
+);

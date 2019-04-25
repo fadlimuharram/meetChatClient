@@ -28,6 +28,7 @@ export default WrappedComponent => {
       isLoggedIn: state.users.isLoggedIn,
       isLoadingUser: state.users.isLoading,
       socket_access_token: state.users.access_token.token,
+      user: state.users.data,
       access_token:
         state.users.access_token.type + " " + state.users.access_token.token
     };

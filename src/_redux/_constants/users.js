@@ -1,5 +1,6 @@
 export const userConstants = {
   LOGIN: "LOGIN",
   LOGOUT: "LOGOUT",
-  REGISTER: "LOGIN"
+  REGISTER: "LOGIN",
+  COVER: "COVER"
 };

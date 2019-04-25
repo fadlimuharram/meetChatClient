@@ -1,6 +1,6 @@
 import { userConstants } from "../_constants";
 
-const { LOGIN, REGISTER, LOGOUT } = userConstants;
+const { LOGIN, REGISTER, LOGOUT, COVER } = userConstants;
 
 const INITIAL_STATE = {
   data: {},
@@ -29,6 +29,12 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         ...INITIAL_STATE
+      };
+    case COVER + "_FULFILLED":
+      // alert(JSON.stringify(action.payload.data));
+      return {
+        ...state,
+        data: action.payload.data.user
       };
 
     case LOGOUT:

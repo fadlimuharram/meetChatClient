@@ -10,6 +10,7 @@ import {
 import { Container, Content, Form, Item, Input, Button } from "native-base";
 import imgPaperPlane from "../assets/image/paper-plane.png";
 import LinearGradient from "react-native-linear-gradient";
+import Loading from "../components/Loading";
 
 export default class Login extends Component {
   static navigationOptions = {
@@ -26,9 +27,14 @@ export default class Login extends Component {
     // this.props.navigation.navigate("TabNav");
     const { email, password } = this.state;
     this.props.login(email, password);
-    this.props.navigation.navigate("TabNav");
   };
   render() {
+    if (this.props.isLoading) {
+      return <Loading />;
+    }
+    if (this.props.access_token) {
+      this.props.navigation.navigate("TabNav");
+    }
     return (
       <Container>
         <LinearGradient style={styles.content} colors={["#58C7FF", "#4F65B6"]}>

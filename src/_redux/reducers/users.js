@@ -30,10 +30,17 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         ...INITIAL_STATE
       };
+    case COVER + "_PENDING":
+      // alert(JSON.stringify(action.payload.data));
+      return {
+        ...state,
+        isLoading: true
+      };
     case COVER + "_FULFILLED":
       // alert(JSON.stringify(action.payload.data));
       return {
         ...state,
+        isLoading: false,
         data: action.payload.data.user
       };
 

@@ -20,11 +20,18 @@ import LinearGradient from "react-native-linear-gradient";
 import { api_picture } from "react-native-dotenv";
 import { LogoutIcon, CameraIcon } from "../assets/svg";
 import ImagePicker from "react-native-image-picker";
+import Loading from "../components/Loading";
+import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
+
 export default class Profile extends Component {
   state = {
     username: "",
     email: "",
-    avatarSource: null
+    avatarSource: null,
+    latitude: null,
+    longitude: null,
+    teslong: "-122.084",
+    error: null
   };
 
   componentDidMount() {
@@ -33,6 +40,26 @@ export default class Profile extends Component {
       username,
       email
     });
+    this.watchId = navigator.geolocation.watchPosition(
+      position => {
+        this.setState({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+          error: null
+        });
+      },
+      error => this.setState({ error: error.message }),
+      {
+        enableHighAccuracy: true,
+        timeout: 20000,
+        maximumAge: 1000,
+        distanceFilter: 10
+      }
+    );
+  }
+
+  componentWillUnmount() {
+    navigator.geolocation.clearWatch(this.watchId);
   }
 
   selectPhotoTapped = () => {
@@ -70,6 +97,9 @@ export default class Profile extends Component {
   toUpload = () => {
     // alert(JSON.stringify(this.state.avatarSource, null, 2));
     this.props.cover(this.state.avatarSource, this.props.access_token);
+    this.setState({
+      avatarSource: ""
+    });
   };
 
   renderTempImage = () => (
@@ -88,8 +118,10 @@ export default class Profile extends Component {
         </TouchableOpacity>
         <Text style={styles.headerTxt}>{this.props.user.username}</Text>
       </View>
+
       <Button onPress={this.toUpload} style={styles.btnUploadImg}>
         <Text style={styles.txtBtnUploadImg}>Upload</Text>
+        {this.state.error ? <Text>Error: {this.state.error}</Text> : null}
       </Button>
     </React.Fragment>
   );
@@ -114,6 +146,9 @@ export default class Profile extends Component {
   );
 
   render() {
+    if (this.props.isLoading) {
+      return <Loading />;
+    }
     return (
       <Container>
         <Content>
@@ -124,6 +159,7 @@ export default class Profile extends Component {
             <TouchableOpacity style={styles.setting} onPress={this.toLogout}>
               <LogoutIcon size="30" color="white" />
             </TouchableOpacity>
+
             {this.state.avatarSource
               ? this.renderTempImage()
               : this.renderCurrentImage()}
@@ -144,9 +180,24 @@ export default class Profile extends Component {
                   onChangeText={email => this.setState({ email })}
                 />
               </Item>
+
               <Button style={styles.btnEdit} full>
-                <Text style={styles.txtBtnEdit}>Ubah</Text>
+                <Text style={styles.txtBtnEdit}>
+                  Ubahh {this.state.latitude}
+                </Text>
               </Button>
+              {this.state.latitude && this.state.longitude && (
+                <MapView
+                  style={styles.mapStyle}
+                  region={{
+                    latitude: this.state.latitude,
+                    longitude: parseFloat(this.state.teslong),
+                    latitudeDelta: 0.003,
+                    longitudeDelta: 0.003
+                  }}
+                  showsUserLocation={true}
+                />
+              )}
             </Form>
           </View>
         </Content>
@@ -213,5 +264,10 @@ const styles = StyleSheet.create({
   },
   txtBtnUploadImg: {
     color: "white"
+  },
+  mapStyle: {
+    width: "100%",
+    height: 200,
+    marginTop: 20
   }
 });

@@ -10,7 +10,7 @@ export default WrappedComponent => {
 
     isAuthenticated = () => {
       if (!this.props.isLoadingUser) {
-        if (this.props.isLoggedIn === false) {
+        if (!this.props.isLoggedIn) {
           this.props.navigation.navigate("AuthStack");
         }
       }

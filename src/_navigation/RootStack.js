@@ -8,6 +8,11 @@ export default createStackNavigator({
     screen: TabNav
   },
   Chat: {
-    screen: Chat
+    screen: Chat,
+    headerMode: "none",
+    navigationOptions: {
+      header: null,
+      headerVisible: false
+    }
   }
 });

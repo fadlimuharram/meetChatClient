@@ -3,6 +3,8 @@ package com.meetchat;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.airbnb.android.react.maps.MapsPackage;
+import com.geektime.rnonesignalandroid.ReactNativeOneSignalPackage;
 import com.imagepicker.ImagePickerPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -29,6 +31,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new MapsPackage(),
+            new ReactNativeOneSignalPackage(),
             new ImagePickerPackage(),
             new LinearGradientPackage(),
             new VectorIconsPackage(),

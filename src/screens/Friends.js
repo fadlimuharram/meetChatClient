@@ -13,6 +13,7 @@ import {
 } from "native-base";
 import CardFriend from "../components/CardFriend";
 import Loading from "../components/Loading";
+import { api_picture } from "react-native-dotenv";
 
 export default class Friends extends Component {
   componentDidMount() {
@@ -49,7 +50,7 @@ export default class Friends extends Component {
               <Left>
                 <Thumbnail
                   large
-                  source={{ uri: "https://placeimg.com/640/480/people" }}
+                  source={{ uri: `${api_picture}${this.props.user.cover}` }}
                 />
                 <Body>
                   <Text style={styles.txtName}>{this.props.user.username}</Text>

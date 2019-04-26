@@ -1,3 +1,4 @@
 export const messageConstants = {
-  MESSAGES: "MESSAGES"
+  MESSAGES: "MESSAGES",
+  MESSAGE_CONNECTION: "MESSAGE_CONNECTION"
 };
